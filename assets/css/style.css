@@ -1,0 +1,14 @@
+
+ form{
+   margin: 20px;
+ }
+
+ html{
+     padding: 1%;
+     background-color: rgb(206, 214, 146);
+ }
+
+ button, #add-charity{
+     margin: 5px;
+     background-color: rgb(173, 170, 164);
+ }
