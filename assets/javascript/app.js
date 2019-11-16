@@ -43,16 +43,13 @@ $("#add-charity").on("click", function(event) {
 renderButtons();
 
 
-
-
-
 function displayCharityImgs() {
   // In this case, the "this" keyword refers to the button that was clicked
   var charity = $(this).attr("data-name");
 
   // Constructing a URL to search Giphy for retrieving images
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    charity + "&api_key=01bjyV9npbshbd7V0vHbxja9NrATk1ll&limit=20";
+    charity + "&api_key=01bjyV9npbshbd7V0vHbxja9NrATk1ll&limit=10";
 
   // Performing our AJAX GET request
   $.ajax({
@@ -63,20 +60,26 @@ function displayCharityImgs() {
       // Storing an array of results in the results variable
       var results = response.data;
 
-      // Looping through result items
+      // Looping through results items
       for (var i = 0; i < results.length; i++) {
 
           var gifDiv = $("<div>");
+
+          gifDiv.css("float", "left");
+          gifDiv.css("margin", "10px");
 
           // Storing the result item's rating
           var rating = results[i].rating;
 
           // create tag with the result item's rating
-          var ratingTag = $("<p>").text("Rating: " + rating.toUpperCase());
+          var ratingTag = $("<label> Rating: " + rating.toUpperCase() + "</label>");
+          
           var imageURL = results[i].images.fixed_height.url;
           var parsedURL = imageURL.slice(0, imageURL.indexOf('.gif'));
 
           var charityImg = $("<img>");
+
+          charityImg.attr("float", "left");
 
           charityImg.attr("class", "gifImage");
 
@@ -86,8 +89,10 @@ function displayCharityImgs() {
           charityImg.attr("data-state", "still");
 
           // Appending the paragraph that is created to the div
-          gifDiv.append(ratingTag);
           gifDiv.append(charityImg);
+          gifDiv.append($("<br>"));
+          gifDiv.append(ratingTag);
+          
 
           // gifDiv prepended to HTML
           $("#charitiesView").prepend(gifDiv);
